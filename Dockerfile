@@ -173,13 +173,8 @@ RUN cd /tmp \
 RUN echo "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'httr', 'devtools', 'uuid', 'digest'), repos='http://cran.us.r-project.org'); devtools::install_github('IRkernel/IRkernel')" | sage -R --no-save
 
 
-# Commit to checkout and build.
-ARG commit=HEAD
-
-# Pull latest source code for CoCalc and checkout requested commit (or HEAD)
-RUN \
-     git clone https://github.com/sagemathinc/cocalc.git \
-  && cd /cocalc && git pull && git fetch origin && git checkout ${commit:-HEAD}
+# Copy cocalc source code.
+COPY cocalc_code/ /cocalc/
 
 # Build and install all deps
 # CRITICAL to install first web, then compute, since compute precompiles all the .js
