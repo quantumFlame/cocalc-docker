@@ -142,13 +142,8 @@ RUN cd /tmp \
  && mv /opt/julia-* /opt/julia \
  && ln -s /opt/julia/bin/julia /usr/local/bin
 
-# Commit to checkout and build.
-ARG commit=HEAD
-
-# Pull latest source code for CoCalc and checkout requested commit (or HEAD)
-RUN \
-     git clone https://github.com/sagemathinc/cocalc.git \
-  && cd /cocalc && git pull && git fetch origin && git checkout ${commit:-HEAD}
+# Copy cocalc source code.
+COPY cocalc_code/ /cocalc/
 
 # Build and install all deps
 # CRITICAL to install first web, then compute, since compute precompiles all the .js
