@@ -1,3 +1,3 @@
 [submodule "cocalc_code"]
 	path = cocalc_code
-	url = git@github.com:zhugeyicixin/cocalc.git
+	url = ../cocalc.git
